@@ -7,7 +7,7 @@ class Networking {
   final String mainUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
   Future<Pokemon> getFunc(String pokeInput) async {
-    var response = await http.get('$mainUrl$pokeInput');
+    var response = await http.get('$mainUrl${pokeInput.toLowerCase()}');
     if (response.statusCode == 200) {
       return Pokemon.fromJson(json.decode(response.body));
     } else {

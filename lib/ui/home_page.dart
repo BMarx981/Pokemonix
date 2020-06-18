@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokemonix/models/poke.dart';
 import 'package:pokemonix/utils/networking.dart';
+import 'package:pokemonix/utils/names.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -23,13 +24,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         padding: EdgeInsets.all(12),
-        child: Column(
+        child: ListView(
           children: <Widget>[
             TextField(
               keyboardType: TextInputType.text,
               controller: controller,
               autocorrect: false,
               onSubmitted: (value) => getPokemon(value),
+              onChanged: (value) => names.contains(value),
+              decoration: InputDecoration(
+                hintText: 'Enter a Pokémon\'s name',
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -45,7 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         '${snapshot.error}\nThat pokemon is not in the index.\nPlease try again.');
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    sender = CircularProgressIndicator();
+                    sender = SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Center(child: CircularProgressIndicator()));
                   } else if (snapshot.connectionState == ConnectionState.none) {
                     sender = Container(child: Text(''));
                   }
@@ -83,7 +91,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 image: NetworkImage(data.sprites['front_default']),
               ),
             ),
-            Text('$name'),
+            Text(
+              '$name',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),

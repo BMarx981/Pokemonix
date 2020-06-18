@@ -28,6 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
             TextField(
               keyboardType: TextInputType.text,
               controller: controller,
+              autocorrect: false,
               onSubmitted: (value) => getPokemon(value),
             ),
             Padding(

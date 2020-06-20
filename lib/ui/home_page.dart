@@ -108,18 +108,55 @@ class _MyHomePageState extends State<MyHomePage> {
                 image: NetworkImage(data.sprites['front_default']),
               ),
             ),
-            ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: namesList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('${namesList[index]}'),
-                  onTap: () {
-                    print('${namesList[index]}');
-                  },
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.amber,
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        'Abilities',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      //Abilities list
+                      ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 6),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: namesList.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(35),
+                              color: Colors.grey[200],
+                            ),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.all(6),
+                              title: Text(
+                                '${namesList[index]}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              trailing: Text('see more...'),
+                              onTap: () {
+                                print('${namesList[index]}');
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             )
           ],
         ),

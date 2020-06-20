@@ -31,7 +31,6 @@ class Pokemon {
     maps.forEach((key) {
       abilityNames.add(key['ability']);
     });
-    print('The names: $abilityNames');
     return Pokemon(
       name: parsedJson['name'],
       id: parsedJson['id'],

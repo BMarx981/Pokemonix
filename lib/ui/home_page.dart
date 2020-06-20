@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokemonix/models/poke.dart';
 import 'package:pokemonix/utils/networking.dart';
 import 'package:pokemonix/utils/names.dart';
+import 'ability_page.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -154,7 +155,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               //abilityMap[namesList[index]]
                               trailing: Text('see more...  '),
                               onTap: () {
-                                print('${namesList[index]}');
+                                getAbility();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AbilityPage(),
+                                  ),
+                                );
                               },
                             ),
                           );
@@ -170,4 +177,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  void getAbility() {}
 }

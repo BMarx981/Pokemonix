@@ -35,8 +35,4 @@ class Pokemon {
       flavorTextChanges: parsedJson['flavor_text_entries'],
     );
   }
-
-  String capsFirstLetter(String input) {
-    return input?.replaceFirst(input[0], input[0].toUpperCase()) ?? ' ';
-  }
 }

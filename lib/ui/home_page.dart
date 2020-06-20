@@ -51,8 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
                     sender = SizedBox(
-                        height: 100,
-                        width: 100,
+                        height: 200,
+                        width: 200,
                         child: Center(child: CircularProgressIndicator()));
                   } else if (snapshot.connectionState == ConnectionState.none) {
                     sender = Container(child: Text(''));
@@ -81,21 +81,25 @@ class _MyHomePageState extends State<MyHomePage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.amber, width: 1),
+          borderRadius: BorderRadius.circular(35),
+        ),
         child: Column(
           children: <Widget>[
+            Text(
+              '$name',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Container(
               height: size,
               width: size,
               child: Image(
                 fit: BoxFit.fill,
                 image: NetworkImage(data.sprites['front_default']),
-              ),
-            ),
-            Text(
-              '$name',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
               ),
             ),
           ],

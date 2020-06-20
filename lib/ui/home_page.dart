@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokemonix/models/ability_model.dart';
 import 'package:pokemonix/models/poke.dart';
 import 'package:pokemonix/utils/networking.dart';
 import 'package:pokemonix/utils/names.dart';
@@ -16,7 +17,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Future<Pokemon> futurePokemon;
+  Future<AbilityModel> abilityObj;
   TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +75,13 @@ class _MyHomePageState extends State<MyHomePage> {
     Networking networking = Networking();
     setState(() {
       futurePokemon = networking.getFunc(value);
+    });
+  }
+
+  void getAbility(String u) async {
+    Networking networking = Networking();
+    setState(() {
+      abilityObj = networking.getAbilityResponse(u);
     });
   }
 
@@ -155,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               //abilityMap[namesList[index]]
                               trailing: Text('see more...  '),
                               onTap: () {
-                                getAbility();
+                                getAbility(abilityMap[namesList[index]]);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -177,6 +187,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-  void getAbility() {}
 }

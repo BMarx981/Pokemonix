@@ -19,7 +19,11 @@ class Networking {
   Future<AbilityModel> getAbilityResponse(String urlInput) async {
     var response = await http.get(urlInput);
     if (response.statusCode == 200) {
-      return AbilityModel.fromJson(json.decode(response.body));
+      var r = AbilityModel.fromJson(json.decode(response.body));
+      print(r.toJson().toString());
+      return r;
+    } else {
+      throw Exception('Failed to load abilities');
     }
   }
 }

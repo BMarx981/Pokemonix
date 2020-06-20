@@ -75,6 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget pokeWidget(data) {
+    List<String> namesList = [];
+    data.abilities.forEach((info) {
+      namesList.add(info['name']
+          .replaceFirst(info['name'][0], info['name'][0].toUpperCase()));
+    });
     String name =
         data.name.replaceFirst(data.name[0], data.name[0].toUpperCase());
     double size = 300;
@@ -86,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(35),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
               '$name',
@@ -102,6 +108,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 image: NetworkImage(data.sprites['front_default']),
               ),
             ),
+            ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: namesList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text('${namesList[index]}'),
+                  onTap: () {
+                    print('${namesList[index]}');
+                  },
+                );
+              },
+            )
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pokemonix/models/ability_model.dart';
 import 'package:pokemonix/models/poke.dart';
 import 'package:pokemonix/utils/networking.dart';
 import 'package:pokemonix/utils/names.dart';
@@ -17,8 +16,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Future<Pokemon> futurePokemon;
-  Future<AbilityModel> abilityObj;
+
   TextEditingController controller = TextEditingController();
+
+  void getPokemon(String value) {
+    Networking networking = Networking();
+    setState(() {
+      futurePokemon = networking.getFunc(value);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +61,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
                     sender = SizedBox(
-                        height: 200,
-                        width: 200,
-                        child: Center(child: CircularProgressIndicator()));
+                      height: 200,
+                      width: 200,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
                   } else if (snapshot.connectionState == ConnectionState.none) {
                     sender = Container(child: Text(''));
                   }
@@ -71,20 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void getPokemon(String value) async {
-    Networking networking = Networking();
-    setState(() {
-      futurePokemon = networking.getFunc(value);
-    });
-  }
-
-  void getAbility(String u) async {
-    Networking networking = Networking();
-    setState(() {
-      abilityObj = networking.getAbilityResponse(u);
-    });
-  }
-
   Widget pokeWidget(data) {
     List<String> namesList = [];
     Map<String, String> abilityMap = {};
@@ -96,17 +91,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
       abilityMap[n] = info['url'];
     });
-    print(abilityMap['name']);
     String name =
         data.name.replaceFirst(data.name[0], data.name[0].toUpperCase());
     double size = 300;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.amber, width: 1),
-          borderRadius: BorderRadius.circular(35),
-        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -118,6 +108,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.amber, width: 1),
+                borderRadius: BorderRadius.circular(35),
+              ),
               height: size,
               width: size,
               child: Image(
@@ -138,10 +132,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: <Widget>[
-                      Text(
-                        'Abilities',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          'Abilities',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       //Abilities list
                       ListView.separated(
@@ -153,8 +150,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         itemBuilder: (context, index) {
                           return Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(35),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.purple, offset: Offset(1, 1)),
+                                BoxShadow(
+                                    color: Colors.pink, offset: Offset(1, 1)),
+                              ],
                               color: Colors.grey[200],
+                              border: Border.all(
+                                color: Colors.amber,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(35),
                             ),
                             child: ListTile(
                               contentPadding: EdgeInsets.all(6),
@@ -162,14 +169,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                 '  ${namesList[index]}',
                                 style: TextStyle(fontSize: 20),
                               ),
-                              //abilityMap[namesList[index]]
                               trailing: Text('see more...  '),
                               onTap: () {
-                                getAbility(abilityMap[namesList[index]]);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AbilityPage(),
+                                    builder: (context) => AbilityPage(
+                                      name: namesList[index],
+                                      url: abilityMap[namesList[index]],
+                                    ),
                                   ),
                                 );
                               },
@@ -181,7 +189,63 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.amber,
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          'Moves',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 6),
+                        shrinkWrap: true,
+                        itemCount: 2,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.purple, offset: Offset(1, 1)),
+                                BoxShadow(
+                                    color: Colors.pink, offset: Offset(1, 1)),
+                              ],
+                              color: Colors.grey[200],
+                              border: Border.all(
+                                color: Colors.amber,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(35),
+                            ),
+                            child: ListTile(
+                              title: Text(
+                                'Move',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

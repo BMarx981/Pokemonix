@@ -11,6 +11,7 @@ class Pokemon {
   List<String> effectChanges;
   List<String> flavorTextChanges;
   List<Map<String, dynamic>> abilities;
+  List<String> moves;
 
   Pokemon({
     this.name,
@@ -23,14 +24,22 @@ class Pokemon {
     this.effectChanges,
     this.flavorTextChanges,
     this.abilities,
+    this.moves,
   });
 
   factory Pokemon.fromJson(Map<String, dynamic> parsedJson) {
-    List<dynamic> maps = parsedJson['abilities'];
+    List<dynamic> abils = parsedJson['abilities'];
     List<Map<String, dynamic>> abilityNames = [];
-    maps.forEach((key) {
+    abils.forEach((key) {
       abilityNames.add(key['ability']);
     });
+    List<String> moveNames = [];
+    List<dynamic> parsedMoves = parsedJson['moves'] ?? 'nulled';
+    parsedMoves.forEach((value) {
+      Map<String, dynamic> moveName = value['move'];
+      moveNames.add(moveName['name']);
+    });
+
     return Pokemon(
       name: parsedJson['name'],
       id: parsedJson['id'],
@@ -42,6 +51,7 @@ class Pokemon {
       effectChanges: parsedJson['effect_changes'],
       flavorTextChanges: parsedJson['flavor_text_entries'],
       abilities: abilityNames,
+      moves: moveNames,
     );
   }
 }

@@ -8,7 +8,7 @@ class Networking {
   final String mainUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
   Future<Pokemon> getFunc(String pokeInput) async {
-    var response = await http.get('$mainUrl${pokeInput.toLowerCase()}');
+    var response = await http.get('$mainUrl${pokeInput.toLowerCase().trim()}');
     if (response.statusCode == 200) {
       return Pokemon.fromJson(json.decode(response.body));
     } else {
@@ -19,9 +19,7 @@ class Networking {
   Future<AbilityModel> getAbilityResponse(String urlInput) async {
     var response = await http.get(urlInput);
     if (response.statusCode == 200) {
-      var r = AbilityModel.fromJson(json.decode(response.body));
-      print(r.toJson().toString());
-      return r;
+      return AbilityModel.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load abilities');
     }

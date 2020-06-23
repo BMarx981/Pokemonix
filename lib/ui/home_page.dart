@@ -215,8 +215,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         separatorBuilder: (context, index) =>
                             SizedBox(height: 6),
                         shrinkWrap: true,
-                        itemCount: 2,
+                        itemCount: data.moves.length,
                         itemBuilder: (context, index) {
+                          String namesCaps = data.moves[index].replaceFirst(
+                              data.moves[index][0],
+                              data.moves[index][0].toUpperCase());
                           return Container(
                             decoration: BoxDecoration(
                               boxShadow: [
@@ -234,7 +237,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             child: ListTile(
                               title: Text(
-                                'Move',
+                                namesCaps,
                                 style: TextStyle(fontSize: 20),
                               ),
                             ),

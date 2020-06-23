@@ -18,7 +18,7 @@ class Networking {
         var chainresponse = await http.get(evolChain['url']);
         if (chainresponse.statusCode == 200) {
           var chain = json.decode(chainresponse.body)['chain'];
-          print(chain);
+          p.evolutions = evolvesTo(chain);
         }
       }
       return p;
@@ -27,6 +27,23 @@ class Networking {
     }
   }
 
+  //Get the list of evolutions
+  List<String> evolvesTo(dynamic chain) {
+    List<String> list = [];
+    List<dynamic> eToList = chain['evolves_to'];
+    int index = 0;
+    Map<String, dynamic> species = chain['species'];
+    list.add(species['name']);
+    while (eToList.isNotEmpty) {
+      Map<String, dynamic> species = eToList[index]['species'];
+      list.add(species['name']);
+      eToList = eToList[index]['evolves_to'];
+    }
+    print(list);
+    return list;
+  }
+
+  //gets the abilities
   Future<AbilityModel> getAbilityResponse(String urlInput) async {
     var response = await http.get(urlInput);
     if (response.statusCode == 200) {
@@ -43,6 +60,8 @@ class Networking {
       var j = json.decode(response.body);
       print(j);
       return j;
+    } else {
+      throw Exception('Failed to load abilities');
     }
   }
 }

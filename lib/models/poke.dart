@@ -13,6 +13,7 @@ class Pokemon {
   List<Map<String, dynamic>> abilities;
   List<String> moves;
   Map<String, dynamic> species;
+  List<String> evolutions;
 
   Pokemon({
     this.name,
@@ -27,6 +28,7 @@ class Pokemon {
     this.abilities,
     this.moves,
     this.species,
+    this.evolutions,
   });
 
   factory Pokemon.fromJson(Map<String, dynamic> parsedJson) {

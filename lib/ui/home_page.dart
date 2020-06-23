@@ -81,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget pokeWidget(data) {
+    List<String> evols = data.evolutions;
     String name =
         data.name.replaceFirst(data.name[0], data.name[0].toUpperCase());
     double size = 300;
@@ -109,11 +110,74 @@ class _MyHomePageState extends State<MyHomePage> {
                 image: NetworkImage(data.sprites['front_default']),
               ),
             ),
+            SizedBox(height: 12),
+            getEvolutionWidget(evols, data),
             getAbilitiesWidget(data),
             getMovesWidget(data),
           ],
         ),
       ),
+    );
+  }
+
+  Widget getEvolutionWidget(List<String> evols, data) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.amber, width: 1),
+            borderRadius: BorderRadius.circular(35),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Evolutions',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.purple, offset: Offset(1, 1)),
+                            BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
+                          ],
+                          color: Colors.grey[200],
+                          border: Border.all(
+                            color: Colors.amber,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(35),
+                        ),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.all(6),
+                          title: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              evols[index].replaceFirst(
+                                evols[index][0],
+                                evols[index][0].toUpperCase(),
+                              ),
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ));
+                  },
+                  separatorBuilder: (context, index) => SizedBox(height: 6),
+                  itemCount: data.evolutions.length,
+                ),
+              ],
+            ),
+          )),
     );
   }
 
@@ -145,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(4.0),
                 child: Text(
                   'Abilities',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               //Abilities list
@@ -215,7 +279,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(4.0),
                 child: Text(
                   'Moves',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               ListView.separated(

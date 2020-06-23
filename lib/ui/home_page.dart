@@ -81,16 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget pokeWidget(data) {
-    List<String> namesList = [];
-    Map<String, String> abilityMap = {};
-    data.abilities.forEach((info) {
-      namesList.add(info['name']
-          .replaceFirst(info['name'][0], info['name'][0].toUpperCase()));
-      String n = info['name']
-          .replaceFirst(info['name'][0], info['name'][0].toUpperCase());
-
-      abilityMap[n] = info['url'];
-    });
     String name =
         data.name.replaceFirst(data.name[0], data.name[0].toUpperCase());
     double size = 300;
@@ -119,137 +109,146 @@ class _MyHomePageState extends State<MyHomePage> {
                 image: NetworkImage(data.sprites['front_default']),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.amber,
-                  ),
-                  borderRadius: BorderRadius.circular(35),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          'Abilities',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      //Abilities list
-                      ListView.separated(
-                        separatorBuilder: (context, index) =>
-                            SizedBox(height: 6),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: abilityMap.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.purple, offset: Offset(1, 1)),
-                                BoxShadow(
-                                    color: Colors.pink, offset: Offset(1, 1)),
-                              ],
-                              color: Colors.grey[200],
-                              border: Border.all(
-                                color: Colors.amber,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(35),
-                            ),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.all(6),
-                              title: Text(
-                                '  ${namesList[index]}',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              trailing: Text('see more...  '),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AbilityPage(
-                                      name: namesList[index],
-                                      url: abilityMap[namesList[index]],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.amber,
-                  ),
-                  borderRadius: BorderRadius.circular(35),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          'Moves',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      ListView.separated(
-                        separatorBuilder: (context, index) =>
-                            SizedBox(height: 6),
-                        shrinkWrap: true,
-                        itemCount: data.moves.length,
-                        itemBuilder: (context, index) {
-                          String namesCaps = data.moves[index].replaceFirst(
-                              data.moves[index][0],
-                              data.moves[index][0].toUpperCase());
-                          return Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.purple, offset: Offset(1, 1)),
-                                BoxShadow(
-                                    color: Colors.pink, offset: Offset(1, 1)),
-                              ],
-                              color: Colors.grey[200],
-                              border: Border.all(
-                                color: Colors.amber,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(35),
-                            ),
-                            child: ListTile(
-                              title: Text(
-                                namesCaps,
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            getAbilitiesWidget(data),
+            getMovesWidget(data),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget getAbilitiesWidget(dynamic data) {
+    List<String> namesList = [];
+    Map<String, String> abilityMap = {};
+    data.abilities.forEach((info) {
+      namesList.add(info['name']
+          .replaceFirst(info['name'][0], info['name'][0].toUpperCase()));
+      String n = info['name']
+          .replaceFirst(info['name'][0], info['name'][0].toUpperCase());
+
+      abilityMap[n] = info['url'];
+    });
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.amber,
+          ),
+          borderRadius: BorderRadius.circular(35),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  'Abilities',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              //Abilities list
+              ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(height: 6),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: abilityMap.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(color: Colors.purple, offset: Offset(1, 1)),
+                        BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
+                      ],
+                      color: Colors.grey[200],
+                      border: Border.all(
+                        color: Colors.amber,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(35),
+                    ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.all(6),
+                      title: Text(
+                        '  ${namesList[index]}',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      trailing: Text('see more...  '),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AbilityPage(
+                              name: namesList[index],
+                              url: abilityMap[namesList[index]],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget getMovesWidget(data) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.amber,
+          ),
+          borderRadius: BorderRadius.circular(35),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  'Moves',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(height: 6),
+                shrinkWrap: true,
+                itemCount: data.moves.length,
+                itemBuilder: (context, index) {
+                  String namesCaps = data.moves[index].replaceFirst(
+                      data.moves[index][0], data.moves[index][0].toUpperCase());
+                  return Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(color: Colors.purple, offset: Offset(1, 1)),
+                        BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
+                      ],
+                      color: Colors.grey[200],
+                      border: Border.all(
+                        color: Colors.amber,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(35),
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        namesCaps,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Widget sender;
                   if (snapshot.hasData &&
                       snapshot.connectionState == ConnectionState.done) {
+                        // if everything looks good build the pokeWidget.
                     sender = pokeWidget(snapshot.data);
                   } else if (snapshot.hasError) {
                     sender = Text(

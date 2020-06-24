@@ -39,7 +39,6 @@ class Networking {
       list.add(species['name']);
       eToList = eToList[index]['evolves_to'];
     }
-    print(list);
     return list;
   }
 
@@ -48,18 +47,6 @@ class Networking {
     var response = await http.get(urlInput);
     if (response.statusCode == 200) {
       return AbilityModel.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load abilities');
-    }
-  }
-
-  Future<List<String>> getEvolutions(String input) async {
-    var response = await http.get(input);
-    // List<String> list = [];
-    if (response.statusCode == 200) {
-      var j = json.decode(response.body);
-      print(j);
-      return j;
     } else {
       throw Exception('Failed to load abilities');
     }

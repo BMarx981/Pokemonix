@@ -140,39 +140,41 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.purple, offset: Offset(1, 1)),
-                            BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
-                          ],
-                          color: Colors.grey[200],
-                          border: Border.all(
-                            color: Colors.amber,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(35),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(color: Colors.purple, offset: Offset(1, 1)),
+                          BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
+                        ],
+                        color: Colors.grey[200],
+                        border: Border.all(
+                          color: Colors.amber,
+                          width: 1,
                         ),
-                        child: ListTile(
-                          contentPadding: EdgeInsets.all(6),
-                          title: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              evols[index].replaceFirst(
-                                evols[index][0],
-                                evols[index][0].toUpperCase(),
-                              ),
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
+                        borderRadius: BorderRadius.circular(35),
+                      ),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(6),
+                        title: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            '${evols[index].replaceFirst(evols[index][0], evols[index][0].toUpperCase())}',
+                            style: TextStyle(
+                              fontSize: 20,
                             ),
                           ),
-                        ));
+                        ),
+                        onTap: () {
+                          controller.text = evols[index];
+                          getPokemon(evols[index]);
+                        },
+                      ),
+                    );
                   },
-                  separatorBuilder: (context, index) => SizedBox(height: 6),
+                  separatorBuilder: (context, index) => SizedBox(height: 10),
                   itemCount: data.evolutions.length,
                 ),
               ],
@@ -214,6 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               //Abilities list
               ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
                 separatorBuilder: (context, index) => SizedBox(height: 6),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -283,6 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
                 separatorBuilder: (context, index) => SizedBox(height: 6),
                 shrinkWrap: true,
                 itemCount: data.moves.length,

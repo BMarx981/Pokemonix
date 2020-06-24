@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Widget sender;
                   if (snapshot.hasData &&
                       snapshot.connectionState == ConnectionState.done) {
-                        // if everything looks good build the pokeWidget.
+                    // if everything looks good build the pokeWidget.
                     sender = pokeWidget(snapshot.data);
                   } else if (snapshot.hasError) {
                     sender = Text(
@@ -103,13 +103,30 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.amber, width: 1),
                 borderRadius: BorderRadius.circular(35),
+                boxShadow: [
+                  BoxShadow(color: Colors.purple, offset: Offset(2, 2)),
+                  BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
+                ],
+                color: Color(0xffefefef),
               ),
               height: size,
               width: size,
-              child: Image(
-                fit: BoxFit.fill,
-                image: NetworkImage(data.sprites['front_default']),
-              ),
+              child: Stack(children: [
+                Opacity(
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Image.asset('assets/images/rockPic.jpg'),
+                  ),
+                  opacity: 0.6,
+                ),
+                Image(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    data.sprites['front_default'],
+                    scale: .1,
+                  ),
+                ),
+              ]),
             ),
             SizedBox(height: 12),
             getEvolutionWidget(evols, data),
@@ -126,6 +143,11 @@ class _MyHomePageState extends State<MyHomePage> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(color: Colors.purple, offset: Offset(2, 2)),
+              BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
+            ],
+            color: Color(0xffefefef),
             border: Border.all(color: Colors.amber, width: 1),
             borderRadius: BorderRadius.circular(35),
           ),
@@ -150,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           BoxShadow(color: Colors.purple, offset: Offset(1, 1)),
                           BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
                         ],
-                        color: Colors.grey[200],
+                        color: Colors.white,
                         border: Border.all(
                           color: Colors.amber,
                           width: 1,
@@ -203,6 +225,11 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.amber,
           ),
           borderRadius: BorderRadius.circular(35),
+          boxShadow: [
+            BoxShadow(color: Colors.purple, offset: Offset(2, 2)),
+            BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
+          ],
+          color: Color(0xffefefef),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -229,7 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         BoxShadow(color: Colors.purple, offset: Offset(1, 1)),
                         BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
                       ],
-                      color: Colors.grey[200],
+                      color: Colors.white,
                       border: Border.all(
                         color: Colors.amber,
                         width: 1,
@@ -274,6 +301,11 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.amber,
           ),
           borderRadius: BorderRadius.circular(35),
+          boxShadow: [
+            BoxShadow(color: Colors.purple, offset: Offset(2, 2)),
+            BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
+          ],
+          color: Color(0xffefefef),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -300,7 +332,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         BoxShadow(color: Colors.purple, offset: Offset(1, 1)),
                         BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
                       ],
-                      color: Colors.grey[200],
+                      color: Colors.white,
                       border: Border.all(
                         color: Colors.amber,
                         width: 1,

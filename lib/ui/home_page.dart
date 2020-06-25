@@ -108,25 +108,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
                 ],
                 color: Color(0xffefefef),
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                  image: AssetImage(
+                    'assets/images/rockPic.jpg',
+                  ),
+                ),
               ),
+              clipBehavior: Clip.hardEdge,
               height: size,
               width: size,
-              child: Stack(children: [
-                Opacity(
-                  child: Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Image.asset('assets/images/rockPic.jpg'),
-                  ),
-                  opacity: 0.6,
+              child: Image(
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                  data.sprites['front_default'],
+                  scale: .1,
                 ),
-                Image(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    data.sprites['front_default'],
-                    scale: .1,
-                  ),
-                ),
-              ]),
+              ),
             ),
             SizedBox(height: 12),
             getEvolutionWidget(evols, data),

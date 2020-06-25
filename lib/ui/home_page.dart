@@ -118,7 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.dstATop),
                   image: AssetImage(
-                    'assets/images/rockPic.jpg',
+                    // 'assets/images/rockPic.jpg',
+                    'assets/images/pokeball_PNG32.png',
                   ),
                 ),
               ),

@@ -3,6 +3,7 @@ import 'package:pokemonix/models/poke.dart';
 import 'package:pokemonix/utils/networking.dart';
 import 'package:pokemonix/utils/names.dart';
 import 'ability_page.dart';
+import 'package:motion_widget/motion_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -89,15 +90,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        child: Column(
+        child: Motion<Column>(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(
-              '$name',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+            MotionElement(
+              child: Text(
+                '$name',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              orientation: MotionOrientation.RIGHT,
+              interval: Interval(0.0, 0.75),
             ),
             Container(
               decoration: BoxDecoration(
@@ -120,12 +125,21 @@ class _MyHomePageState extends State<MyHomePage> {
               clipBehavior: Clip.hardEdge,
               height: size,
               width: size,
-              child: Image(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                  data.sprites['front_default'],
-                  scale: .1,
-                ),
+              child: Motion<Row>(
+                children: <Widget>[
+                  MotionElement(
+                    mode: MotionMode.FADE,
+                    interval: Interval(0.3, 0.9),
+                    orientation: MotionOrientation.LEFT,
+                    child: Image(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                        data.sprites['front_default'],
+                        scale: .1,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 12),

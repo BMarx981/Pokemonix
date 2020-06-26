@@ -61,10 +61,10 @@ class _AbilityPageState extends State<AbilityPage> {
                       Text('${snapshot.error}\n Failed to load the abilities.'),
                 );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
-                ret = SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: Center(
+                ret = Center(
+                  child: SizedBox(
+                    height: 200,
+                    width: 200,
                     child: CircularProgressIndicator(),
                   ),
                 );

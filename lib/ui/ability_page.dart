@@ -54,7 +54,7 @@ class _AbilityPageState extends State<AbilityPage> {
                   Language n = value.pokemonChar;
                   names.add(n.name);
                 });
-                ret = FinishedProduct(names: names);
+                ret = FinalWidget(names: names);
               } else if (snapshot.hasError) {
                 ret = Container(
                   child:
@@ -83,8 +83,8 @@ class _AbilityPageState extends State<AbilityPage> {
   }
 }
 
-class FinishedProduct extends StatelessWidget {
-  const FinishedProduct({
+class FinalWidget extends StatelessWidget {
+  const FinalWidget({
     Key key,
     @required this.names,
   }) : super(key: key);

@@ -23,6 +23,8 @@ class DBClient {
       id INTEGER PRIMARY KEY,
       poke_name TEXT NOT NULL,
       evolutions TEXT NOT NULL,
+      image_url TEXT NOT NULL,
+      
 
     """);
   }

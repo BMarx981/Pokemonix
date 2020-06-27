@@ -31,13 +31,21 @@ class Networking {
   List<String> evolvesTo(dynamic chain) {
     List<String> list = [];
     List<dynamic> eToList = chain['evolves_to'];
-    int index = 0;
-    Map<String, dynamic> species = chain['species'];
-    list.add(species['name']);
-    while (eToList.isNotEmpty) {
-      Map<String, dynamic> species = eToList[index]['species'];
+
+    if (eToList.length > 1) {
+      eToList.forEach((element) {
+        Map<String, dynamic> species = element['species'];
+        list.add(species['name']);
+      });
+    } else {
+      int index = 0;
+      Map<String, dynamic> species = chain['species'];
       list.add(species['name']);
-      eToList = eToList[index]['evolves_to'];
+      while (eToList.isNotEmpty) {
+        Map<String, dynamic> species = eToList[index]['species'];
+        list.add(species['name']);
+        eToList = eToList[index]['evolves_to'];
+      }
     }
     return list;
   }

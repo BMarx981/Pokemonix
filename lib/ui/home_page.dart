@@ -18,12 +18,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   BoxDecoration bd = BoxDecoration(
     border: Border.all(
-      color: Colors.amber,
+      color: Colors.grey[500],
     ),
     borderRadius: BorderRadius.circular(35),
     boxShadow: [
-      BoxShadow(color: Color(0x44B868C8), offset: Offset(4, 4)),
-      // BoxShadow(color: Colors.purple, offset: Offset(4, 4)),
+      BoxShadow(color: Colors.purple, offset: Offset(3, 3)),
       BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
     ],
     color: Color(0xffefefef),
@@ -118,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.amber, width: 1),
                 borderRadius: BorderRadius.circular(35),
                 boxShadow: [
                   BoxShadow(color: Colors.purple, offset: Offset(2, 2)),
@@ -135,7 +133,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              clipBehavior: Clip.hardEdge,
               height: size,
               width: size,
               child: Motion<Row>(

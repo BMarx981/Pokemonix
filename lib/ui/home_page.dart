@@ -16,6 +16,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  BoxDecoration bd = BoxDecoration(
+    border: Border.all(
+      color: Colors.amber,
+    ),
+    borderRadius: BorderRadius.circular(35),
+    boxShadow: [
+      BoxShadow(color: Color(0x44B868C8), offset: Offset(4, 4)),
+      // BoxShadow(color: Colors.purple, offset: Offset(4, 4)),
+      BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
+    ],
+    color: Color(0xffefefef),
+  );
   Future<Pokemon> futurePokemon;
 
   TextEditingController controller = TextEditingController();
@@ -59,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     sender = pokeWidget(snapshot.data);
                   } else if (snapshot.hasError) {
                     sender = Text(
-                        '${snapshot.error}\nThat pokemon is not in the index.\nPlease try again.');
+                        '${snapshot.error}\nThat pokemon is not in the index.\nPlease check teh spelling and try again.');
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
                     sender = SizedBox(
@@ -157,15 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(color: Colors.purple, offset: Offset(2, 2)),
-              BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
-            ],
-            color: Color(0xffefefef),
-            border: Border.all(color: Colors.amber, width: 1),
-            borderRadius: BorderRadius.circular(35),
-          ),
+          decoration: bd,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -182,18 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(color: Colors.purple, offset: Offset(1, 1)),
-                          BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
-                        ],
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.amber,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(35),
-                      ),
+                      decoration: bd,
                       child: ListTile(
                         contentPadding: EdgeInsets.all(6),
                         title: Padding(
@@ -235,17 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.amber,
-          ),
-          borderRadius: BorderRadius.circular(35),
-          boxShadow: [
-            BoxShadow(color: Colors.purple, offset: Offset(2, 2)),
-            BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
-          ],
-          color: Color(0xffefefef),
-        ),
+        decoration: bd,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -266,18 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: abilityMap.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(color: Colors.purple, offset: Offset(1, 1)),
-                        BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
-                      ],
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.amber,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(35),
-                    ),
+                    decoration: bd,
                     child: ListTile(
                       contentPadding: EdgeInsets.all(6),
                       title: Text(
@@ -311,17 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.amber,
-          ),
-          borderRadius: BorderRadius.circular(35),
-          boxShadow: [
-            BoxShadow(color: Colors.purple, offset: Offset(2, 2)),
-            BoxShadow(color: Colors.pink, offset: Offset(2, 2)),
-          ],
-          color: Color(0xffefefef),
-        ),
+        decoration: bd,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -342,18 +304,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   String namesCaps = data.moves[index].replaceFirst(
                       data.moves[index][0], data.moves[index][0].toUpperCase());
                   return Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(color: Colors.purple, offset: Offset(1, 1)),
-                        BoxShadow(color: Colors.pink, offset: Offset(1, 1)),
-                      ],
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.amber,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(35),
-                    ),
+                    decoration: bd,
                     child: ListTile(
                       title: Text(
                         namesCaps,

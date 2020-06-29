@@ -16,6 +16,7 @@ class DatabaseHelper {
   final String colEvolutions = 'evolutions';
   final String colAbilities = 'abilities';
   final String colMoves = 'moves';
+  final String colSprite = 'sprites';
 
   static Database _database;
 
@@ -43,12 +44,19 @@ class DatabaseHelper {
             $colEvolutions TEXT NOT NULL,
             $colAbilities TEXT NOT NULL,
             $colMoves TEXT NOT NULL,
+            $colSprite TEXT NOT NULL,
           )
           ''');
   }
 
   Future<int> insert(Map<String, dynamic> row) async {
+    print(row);
     Database db = await instance.database;
+    row.forEach((key, value) {
+      if (key == 'evolutions' || key == 'moves' || key == 'abilities') {
+
+      }
+    });
     return await db.insert(table, row);
   }
 
@@ -66,5 +74,30 @@ class DatabaseHelper {
   Future<int> delete(int id) async {
     Database db = await instance.database;
     return await db.delete(table, where: '$colId = ?', whereArgs: [id]);
+  }
+
+  String createStringFromList(List<String> list) {
+    String output = '';
+    if (list.isEmpty) {
+      return output;
+    }
+    list.forEach((element) {
+      StringBuffer sb = StringBuffer();
+      sb.write(element);
+      sb.write('||?');
+      output = sb.toString();
+    });
+    return output;
+  }
+
+  List<String> createListFromString(String input) {
+    List<String> list = [];
+    if (input.isEmpty) {
+      list.add('');
+      return list;
+    }
+    list = input.split('||?');
+
+    return list;
   }
 }

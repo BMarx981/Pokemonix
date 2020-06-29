@@ -1,7 +1,7 @@
-import 'package:pokemonix/models/poke.dart';
+// import 'package:pokemonix/models/poke.dart';
 
-class Repository {
-  Future<Pokemon> get() {}
+// class Repository {
+//   Future<Pokemon> get() {}
 
-  Future<Pokemon> add() {}
-}
+//   Future<Pokemon> add() {}
+// }

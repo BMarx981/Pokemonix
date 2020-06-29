@@ -28,8 +28,11 @@ class _MyHomePageState extends State<MyHomePage> {
     color: Color(0xffefefef),
   );
   Future<Pokemon> futurePokemon;
+  String pokeName;
 
   TextEditingController controller = TextEditingController();
+
+  bool favPressed = false;
 
   void getPokemon(String value) {
     Networking networking = Networking();
@@ -43,6 +46,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon:
+                favPressed ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+            onPressed: () {
+              if (pokeName == null) {
+                print('Search for a pokemon first.');
+              } else if (pokeName.isNotEmpty) {
+                print('$pokeName saved');
+                setState(() {
+                  favPressed = !favPressed;
+                });
+              }
+            },
+          )
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(12),
@@ -97,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
     List<String> evols = data.evolutions;
     String name =
         data.name.replaceFirst(data.name[0], data.name[0].toUpperCase());
+    pokeName = name;
     double size = 300;
     return Padding(
       padding: const EdgeInsets.all(8.0),

@@ -4,12 +4,12 @@ import 'package:pokemonix/utils/networking.dart';
 import 'package:pokemonix/utils/names.dart';
 import 'ability_page.dart';
 import 'package:motion_widget/motion_widget.dart';
+import 'package:pokemonix/database/database_helper.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
-  final Networking networking = Networking();
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -27,12 +27,16 @@ class _MyHomePageState extends State<MyHomePage> {
     ],
     color: Color(0xffefefef),
   );
+
   Future<Pokemon> futurePokemon;
+
   String pokeName;
 
   TextEditingController controller = TextEditingController();
 
   bool favPressed = false;
+
+  final database = DatabaseHelper.instance;
 
   void getPokemon(String value) {
     Networking networking = Networking();
@@ -55,6 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 print('Search for a pokemon first.');
               } else if (pokeName.isNotEmpty) {
                 print('$pokeName saved');
+                Pokemon p = futurePokemon as Pokemon;
+                database.insert(p.toMap());
                 setState(() {
                   favPressed = !favPressed;
                 });

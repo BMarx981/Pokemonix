@@ -44,17 +44,29 @@ class DatabaseHelper {
             $colEvolutions TEXT NOT NULL,
             $colAbilities TEXT NOT NULL,
             $colMoves TEXT NOT NULL,
-            $colSprite TEXT NOT NULL,
+            $colSprite TEXT NOT NULL
           )
           ''');
   }
 
   Future<int> insert(Map<String, dynamic> row) async {
-    print(row);
     Database db = await instance.database;
     row.forEach((key, value) {
-      if (key == 'evolutions' || key == 'moves' || key == 'abilities') {
+      if (key == 'abilities') {
+        List<String> list = [];
 
+        value.forEach((element) {
+          list.add(element['name']);
+        });
+        row[key] = createStringFromList(list);
+      } else if (key == 'evolutions' || key == 'moves') {
+        List<String> list = [];
+        value.forEach((element) {
+          list.add(element);
+        });
+        row[key] = createStringFromList(list);
+      } else if (key == 'sprites') {
+        row[key] = value['front_default'];
       }
     });
     return await db.insert(table, row);
@@ -85,7 +97,7 @@ class DatabaseHelper {
       StringBuffer sb = StringBuffer();
       sb.write(element);
       sb.write('||?');
-      output = sb.toString();
+      output += sb.toString();
     });
     return output;
   }

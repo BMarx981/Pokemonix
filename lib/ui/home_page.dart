@@ -30,6 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Pokemon> futurePokemon;
 
+  Pokemon pokemonObject = Pokemon();
+
   String pokeName;
 
   TextEditingController controller = TextEditingController();
@@ -42,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Networking networking = Networking();
     setState(() {
       futurePokemon = networking.getFunc(value);
+      favPressed = false;
     });
   }
 
@@ -59,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 print('Search for a pokemon first.');
               } else if (pokeName.isNotEmpty) {
                 print('$pokeName saved');
-                Pokemon p = futurePokemon as Pokemon;
+                Pokemon p = pokemonObject;
                 database.insert(p.toMap());
                 setState(() {
                   favPressed = !favPressed;
@@ -93,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       snapshot.connectionState == ConnectionState.done) {
                     // if everything looks good build the pokeWidget.
                     sender = pokeWidget(snapshot.data);
+                    pokemonObject = snapshot.data as Pokemon;
                   } else if (snapshot.hasError) {
                     sender = Text(
                         '${snapshot.error}\nThat pokemon is not in the index.\nPlease check teh spelling and try again.');
@@ -154,7 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.5), BlendMode.dstATop),
                   image: AssetImage(
-                    // 'assets/images/rockPic.jpg',
                     'assets/images/pokeball_PNG32.png',
                   ),
                 ),

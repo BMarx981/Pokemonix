@@ -64,4 +64,15 @@ class Pokemon {
       moves: moveNames,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = Map<String, dynamic>();
+    map['name'] = this.name;
+    map['sprites'] = this.sprites;
+    map['id'] = this.id;
+    map['abilities'] = this.abilities;
+    map['evolutions'] = this.evolutions;
+    map['moves'] = this.moves;
+    return map;
+  }
 }

@@ -13,11 +13,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.red,
+        secondaryHeaderColor: Colors.redAccent[900],
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Pokémonix'),
     );
   }
 }
-
-
